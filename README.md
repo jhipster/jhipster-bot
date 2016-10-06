@@ -12,3 +12,14 @@ Future roadmap:
 
 - Add sub-generators, like the entity sub-generator
 - Support other Bot platforms
+
+How to try it
+
+- Create a bot on your Slack team:
+  https://my.slack.com/services/new/bot
+- Take the API token that slack gives you.
+- In the project's root directory use the command
+```
+token=<YOUR API TOKEN> node jhipster-bot.js
+```
+- And start the conversation with your bot in your slack channel by typing `jhipster`
