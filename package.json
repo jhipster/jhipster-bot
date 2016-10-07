@@ -16,6 +16,7 @@
     "url": "https://github.com/jhipster/jhipster-bot/issues"
   },
   "dependencies": {
-    "botkit": "~0.2.2"
+    "botkit": "~0.2.2",
+    "file-system": "^2.2.1"
   }
 }
