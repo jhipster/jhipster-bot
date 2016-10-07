@@ -1,7 +1,8 @@
 var Botkit = require('botkit');
 
 /*All the constants*/
-const constants = require('./constants');
+const constants = require('./lib/constants'),
+       appDescriptorWriter = require('./lib/export/app_descriptor_file_writer');
 
 var controller = Botkit.slackbot({
     debug:true,
@@ -38,13 +39,13 @@ var application = {
         "testFrameworks": [
             "gatling"
         ],
-        "jhiPrefix": "jhi"
-        //"enableTranslation": true,
-        //"nativeLanguage": "en",
-        //"languages": [
-        //    "en",
-        //    "fr"
-        //]
+        "jhiPrefix": "jhi",
+        "enableTranslation": true,
+        "nativeLanguage": "en",
+        "languages": [
+            "en",
+            "fr"
+        ]
 };
 
 
@@ -136,6 +137,7 @@ controller.hears(['jhipster'], ['direct_message','direct_mention','mention'], fu
         convo.ask(createMultipleChoiceQuestion(constants.HIBERNATE_CACHE_QUESTION, constants.HIBERNATE_CACHE_CHOICES),
             function(response, convo){
                 processChoice(response, convo, (v =>{application.hibernateCache = v;}), constants.HIBERNATE_CACHE_CHOICES);
+                writeApplicationDescription();
                 convo.stop();
             }
         );
@@ -149,6 +151,21 @@ controller.hears(['applicationstatus'], ['direct_message','direct_mention','ment
     console.log(application);
     console.log('********************');
 });
+
+
+/**
+ * Write the content of applicationDescription in the file .yo-rc.json
+ */
+ function writeApplicationDescription(){
+    appDescriptorWriter.write(
+        {
+            directory: 'dummy',
+            content: application
+        }
+    );
+ }
+
+
 
 
 /**
@@ -193,11 +210,11 @@ var processResponse = function(response, convo, isValid, process){
 
 
 /**
-* Check if the number selected by the user is valid for the choices given to him
-* @param {integer} choiceNumber - the number of the choice selected by the user
-* @param {array} choices
-* @return boolean
-*/
+ * Check if the number selected by the user is valid for the choices given to him
+ * @param {integer} choiceNumber - the number of the choice selected by the user
+ * @param {array} choices
+ * @return boolean
+ */
 var isChoiceValid = function (choiceNumber, choices){
     if(!isNaN(choiceNumber)
         && choiceNumber <= choices.length
@@ -208,10 +225,10 @@ var isChoiceValid = function (choiceNumber, choices){
 };
 
 /**
-* Check if the name of the app is valid
-* @param the name of the app
-* @return boolean
-*/
+ * Check if the name of the app is valid
+ * @param the name of the app
+ * @return boolean
+ */
 var isAppNameValid = function (appName){
     //TODO
     return true;
