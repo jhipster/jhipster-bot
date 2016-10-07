@@ -2,7 +2,8 @@ var Botkit = require('botkit');
 
 /*All the constants*/
 const constants = require('./lib/constants'),
-       appDescriptorWriter = require('./lib/export/app_descriptor_file_writer');
+       appDescriptorWriter = require('./lib/export/app_description_file_writer'),
+       appGenerator = require('./lib/generator/application_generator');
 
 var controller = Botkit.slackbot({
     debug:true,
@@ -49,7 +50,6 @@ var application = {
 };
 
 
-// give the bot something to listen for.
 controller.hears('hello',['direct_message','direct_mention','mention'],function(bot,message) {
   bot.reply(message,'Hello yourself.');
 });
@@ -137,7 +137,7 @@ controller.hears(['jhipster'], ['direct_message','direct_mention','mention'], fu
         convo.ask(createMultipleChoiceQuestion(constants.HIBERNATE_CACHE_QUESTION, constants.HIBERNATE_CACHE_CHOICES),
             function(response, convo){
                 processChoice(response, convo, (v =>{application.hibernateCache = v;}), constants.HIBERNATE_CACHE_CHOICES);
-                writeApplicationDescription();
+                generateApplication('dummy');
                 convo.stop();
             }
         );
@@ -152,18 +152,15 @@ controller.hears(['applicationstatus'], ['direct_message','direct_mention','ment
     console.log('********************');
 });
 
-
-/**
- * Write the content of applicationDescription in the file .yo-rc.json
- */
- function writeApplicationDescription(){
+function generateApplication(directory){
     appDescriptorWriter.write(
         {
-            directory: 'dummy',
+            directory: directory,
             content: application
         }
     );
- }
+    appGenerator.generate(directory);
+};
 
 
 
