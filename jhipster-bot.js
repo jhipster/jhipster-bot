@@ -137,12 +137,18 @@ controller.hears(['jhipster'], ['direct_message','direct_mention','mention'], fu
         convo.ask(createMultipleChoiceQuestion(constants.HIBERNATE_CACHE_QUESTION, constants.HIBERNATE_CACHE_CHOICES),
             function(response, convo){
                 processChoice(response, convo, (v =>{application.hibernateCache = v;}), constants.HIBERNATE_CACHE_CHOICES);
-                generateApplication('dummy');
+
                 convo.stop();
             }
         );
     };
 
+
+    var tellTheEnd = function(response, convo){
+        convo.say('Let me generate your JHipster project...');
+        generateApplication('dummy');
+        convo.say('Ok! I\'m done!');
+    }
     bot.startConversation(message, askAppType);
 });
 
