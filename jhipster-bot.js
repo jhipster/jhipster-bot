@@ -1,9 +1,15 @@
-var Botkit = require('botkit');
-
-/*All the constants*/
+'user strict';
 const constants = require('./lib/constants'),
        appDescriptorWriter = require('./lib/export/app_description_file_writer'),
        appGenerator = require('./lib/generator/application_generator');
+
+var validator = require('./lib/validator'),
+    isChoiceValid = validator.isChoiceValid,
+    isAppPackageValid = validator.isAppPackageValid,
+    isAppNameValid = validator.isAppNameValid;
+
+
+var Botkit = require('botkit');
 
 var controller = Botkit.slackbot({
     debug:true,
@@ -16,7 +22,7 @@ controller.spawn({
     token: process.env.token
 }).startRTM();
 
-
+//Default application description
 var application = {
         "jhipsterVersion": "3.8.0",
         "baseName": "jhipster",
@@ -29,7 +35,7 @@ var application = {
         "websocket": false,
         "databaseType": "sql",
         "devDatabaseType": "h2Disk",
-        "prodDatabaseType": "mysql",
+        "prodDatabaseType": "",
         "searchEngine": false,
         "messageBroker": false,
         "buildTool": "maven",
@@ -74,7 +80,7 @@ controller.hears(['jhipster'], ['direct_message','direct_mention','mention'], fu
 
     var askAppPackage = function(response, convo) {
       convo.ask(constants.APP_PACKAGE_QUESTION, function(response, convo) {
-        processResponse(response, convo, isAppPackageValid, (v => {application.applicationPackage=v;}));
+        processResponse(response, convo, isAppPackageValid, processResponsePackageName);
         askAuthenticationType(response, convo);
         convo.next();
       });
@@ -137,25 +143,20 @@ controller.hears(['jhipster'], ['direct_message','direct_mention','mention'], fu
         convo.ask(createMultipleChoiceQuestion(constants.HIBERNATE_CACHE_QUESTION, constants.HIBERNATE_CACHE_CHOICES),
             function(response, convo){
                 processChoice(response, convo, (v =>{application.hibernateCache = v;}), constants.HIBERNATE_CACHE_CHOICES);
-
-                convo.stop();
+                sayTheEnd(response, convo);
             }
         );
     };
 
 
-    var tellTheEnd = function(response, convo){
+    var sayTheEnd = function(response, convo){
         convo.say('Let me generate your JHipster project...');
         generateApplication('dummy');
         convo.say('Ok! I\'m done!');
-    }
-    bot.startConversation(message, askAppType);
-});
+        convo.stop();
+    };
 
-controller.hears(['applicationstatus'], ['direct_message','direct_mention','mention'], function(bot,message){
-    console.log('********************');
-    console.log(application);
-    console.log('********************');
+    bot.startConversation(message, askAppType);
 });
 
 function generateApplication(directory){
@@ -167,9 +168,6 @@ function generateApplication(directory){
     );
     appGenerator.generate(directory);
 };
-
-
-
 
 /**
  * Process the choice from the user
@@ -184,9 +182,7 @@ var processChoice = function(response, convo, process, choices){
         /* get the value corresponding to the number */
         var value = choices[choiceNumber-1].value;
         process(value);
-        //convo.say('Here you go mate: '+ value);
     }else{
-        /* ask to repeat */
         convo.say('Please, choose a valid answer.');
         convo.repeat();
     }
@@ -203,49 +199,17 @@ var processResponse = function(response, convo, isValid, process){
     var responseText = response.text;
     if(isValid(responseText)){
         process(responseText);
-        //convo.say('Here you go mate: ' + responseText);
     }else{
-        /* ask to repeat */
         convo.say('Please, choose a valid answer.');
         convo.repeat();
     }
 };
 
 
-/**
- * Check if the number selected by the user is valid for the choices given to him
- * @param {integer} choiceNumber - the number of the choice selected by the user
- * @param {array} choices
- * @return boolean
- */
-var isChoiceValid = function (choiceNumber, choices){
-    if(!isNaN(choiceNumber)
-        && choiceNumber <= choices.length
-        && choiceNumber >= 1){
-            return true;
-    }
-    return false;
-};
-
-/**
- * Check if the name of the app is valid
- * @param the name of the app
- * @return boolean
- */
-var isAppNameValid = function (appName){
-    //TODO
-    return true;
-};
-
-/**
- * Check if the name of the package is valid
- * @param the name of the package
- * @return boolean
- */
-var isAppPackageValid = function(appPackage){
-    //TODO
-    return true;
-};
+ function processResponsePackageName(responseText){
+    application.packageName = responseText;
+    application.packageFolder = responseText.replace('.', '/');
+ }
 
 /**
  * Create multiple choice question message
