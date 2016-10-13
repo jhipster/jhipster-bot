@@ -1,7 +1,8 @@
 'user strict';
 const constants = require('./lib/constants'),
        appDescriptorWriter = require('./lib/export/app_description_file_writer'),
-       appGenerator = require('./lib/generator/application_generator');
+       appGenerator = require('./lib/generator/application_generator'),
+       appPublisher = require('./lib/publisher/application_publisher_github');
 
 var validator = require('./lib/validator'),
     isChoiceValid = validator.isChoiceValid,
@@ -151,7 +152,7 @@ controller.hears(['jhipster'], ['direct_message','direct_mention','mention'], fu
 
     var sayTheEnd = function(response, convo){
         convo.say('Let me generate your JHipster project...');
-        generateApplication('dummy');
+        generateAndPublishApplication('dummy');
         convo.say('Ok! I\'m done!');
         convo.stop();
     };
@@ -159,7 +160,7 @@ controller.hears(['jhipster'], ['direct_message','direct_mention','mention'], fu
     bot.startConversation(message, askAppType);
 });
 
-function generateApplication(directory){
+function generateAndPublishApplication(directory){
     appDescriptorWriter.write(
         {
             directory: directory,
@@ -167,6 +168,7 @@ function generateApplication(directory){
         }
     );
     appGenerator.generate(directory);
+    appPublisher.initialPublish(directory, application.baseName)
 };
 
 /**
