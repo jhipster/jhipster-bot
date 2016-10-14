@@ -4,7 +4,8 @@
   "description": "Enable you to generate a JHipster App using Slack",
   "main": "jhipster-bot.js",
   "scripts": {
-    "test": "mocha test"
+    "test": "mocha test",
+    "heroku-postbuild": "npm install -g yo && npm install -g generator-jhipster"
   },
   "repository": {
     "type": "git",
