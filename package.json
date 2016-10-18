@@ -12,7 +12,7 @@
     "url": "https://github.com/jhipster/jhipster-bot.git"
   },
   "author": "CarlKlagba",
-  "license": "BSD-2-Clause",
+  "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/jhipster/jhipster-bot/issues"
   },
