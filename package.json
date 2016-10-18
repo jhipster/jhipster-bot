@@ -5,7 +5,7 @@
   "main": "jhipster-bot.js",
   "scripts": {
     "test": "mocha test",
-    "heroku-postbuild": "npm install -g yo && npm install -g generator-jhipster && npm install -g bower"
+    "heroku-postbuild": "npm install -g yo && npm install -g generator-jhipster && npm install -g bower && npm rm -g gulp && npm install -g gulp-cli"
   },
   "repository": {
     "type": "git",
