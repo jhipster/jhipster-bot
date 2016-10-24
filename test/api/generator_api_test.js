@@ -38,14 +38,16 @@ var application = {
 
 describe('Routing', function() {
     var api, execMock, fsMock;
-     beforeEach(function () {
-        mockery.enable();
+    beforeEach(function () {
+        mockery.enable({
+            useCleanCache: true,
+            warnOnReplace: false,
+            warnOnUnregistered: false
+        });
         execMock = {
             execSync: function(stub1, stub2){
                 console.log('Mocking the execution of the command: '+stub1);
-            }
-        };
-        fsMock = {
+            },
             fileExists: function(args){
                 return true;
             },
@@ -57,27 +59,47 @@ describe('Routing', function() {
         mockery.registerMock('fs', fsMock);
 
         api = require('../../lib/api/api');
-     });
+    });
 
     afterEach(function () {
-       api.close();
-       mockery.disable();
+        api.close();
+        mockery.disable();
     });
 
-    it('responds to /application', () => {
-        var body = {
-            directory :'testDirectory',
-            applicationDescription: application
-        };
-        request(api)
-            .post('/generator/application')
-            .send(body)
-            .expect(200)
-            .end(function(err, res){
-                if(err){
-                    throw err;
-                }
-            });
+    describe('When everything goes fine', function() {
+        it('the response code to /application is 200 and there is an success message.', () => {
+            var body = {
+                directory :'testDirectory',
+                applicationDescription: application
+            };
+            request(api)
+                .post('/generator/application')
+                .send(body)
+                .expect(200)
+                .end(function(err, res){
+                    if(err){
+                        throw err;
+                    }
+                    expect(res.message).to.not.be.undefined;
+                });
+        });
     });
 
+    describe('The directory parameter is not set', function() {
+        it('the response code to /application is 500 and there is an error\'s message', () => {
+            var body = {
+                directory : '',
+                applicationDescription: application
+            };
+            request(api)
+                .post('/generator/application')
+                .send(body)
+                .expect(500)
+                .end(function(err, res){
+                    if(err){
+                        throw err;
+                    }
+                });
+        });
+    });
 });
