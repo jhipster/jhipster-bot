@@ -2,13 +2,16 @@
 const constants = require('./lib/constants'),
        appDescriptorWriter = require('./lib/export/app_description_file_writer'),
        appGenerator = require('./lib/generator/application_generator'),
-       appPublisher = require('./lib/publisher/application_publisher_github');
+       appPublisher = require('./lib/publisher/application_publisher_github'),
+       serverHeroku = require('./server_heroku'),
+       SLACK_BOT_TOKEN = require('./lib/configuration').slack_bot_token;
 
 var validator = require('./lib/validator'),
     isChoiceValid = validator.isChoiceValid,
     isAppPackageValid = validator.isAppPackageValid,
     isAppNameValid = validator.isAppNameValid;
 
+serverHeroku.start();
 
 var Botkit = require('botkit');
 
@@ -20,7 +23,7 @@ var controller = Botkit.slackbot({
 
 // Connect the bot to a stream of messages
 controller.spawn({
-    token: process.env.token
+    token: SLACK_BOT_TOKEN
 }).startRTM();
 
 //Default application description
