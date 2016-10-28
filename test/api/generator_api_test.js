@@ -36,9 +36,9 @@ var application = {
         ]
 };
 
-describe('Routing', function() {
+describe('Generator Router', () => {
     var api, execMock, fsMock;
-    beforeEach(function () {
+    beforeEach(() => {
         mockery.enable({
             useCleanCache: true,
             warnOnReplace: false,
@@ -61,13 +61,13 @@ describe('Routing', function() {
         api = require('../../lib/api/api');
     });
 
-    afterEach(function () {
+    afterEach(() => {
         api.close();
         mockery.disable();
     });
 
-    describe('When everything goes fine', function() {
-        it('the response code to /application is 200 and there is an success message.', () => {
+    describe('When everything goes fine', () => {
+        it('the response code to /application is 200 and there is a success message.', () => {
             var body = {
                 directory :'testDirectory',
                 applicationDescription: application
@@ -85,8 +85,8 @@ describe('Routing', function() {
         });
     });
 
-    describe('The directory parameter is not set', function() {
-        it('the response code to /application is 500 and there is an error\'s message', () => {
+    describe('The directory parameter is not set', () => {
+        it('the response code to /application is 500 and there is an error message', () => {
             var body = {
                 directory : '',
                 applicationDescription: application
