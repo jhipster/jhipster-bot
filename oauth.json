@@ -1,9 +1,0 @@
-{
-  "slack_bot_token": "xoxb-86640217780-8RMnf9jLtCniebFQmVnTdFv7",
-  "git_auth_token":  "31e828ddc351dc3440684719626a0e7a0e71d031",
-  "git_name":   "CarlTheBot",
-  "git_client_id":   "cd26bad5ea8294f98158",
-  "git_client_secret":   "298d2b8e15b79a11e5f3e135640ae15215932bb0",
-  "git_email":  "klagba+github@gmail.com",
-  "ps_connection_url": "postgres://cawmxvedwbtcgo:QkXdPmKMPD1EBN4WHgMzUSIGE-@ec2-54-228-213-46.eu-west-1.compute.amazonaws.com:5432/demv0cjhdvuuae"
-}
