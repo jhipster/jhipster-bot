@@ -2,7 +2,7 @@
 
 module.exports = {
     get : function(user, callback){
-       callback(null, {"id":1,"name":"testName","email":"test@mail.com","token":"testtoken"});
+       callback(null, {"id":1, "name":"testName", "token":"testtoken"});
     },
 
     update : function(user, callback){

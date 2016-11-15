@@ -7,7 +7,7 @@ const expect = require('chai').expect,
 var userDaoMock = require('../mock/userDao_mock'),
     userService = new UserService(userDaoMock);
 
-var userTest = {"name":"testName","email":"test@mail.com","token":"testtoken"}
+var userTest = {"name":"testName","token":"testtoken"}
 
 describe('userService', () => {
     before(function(){
@@ -23,7 +23,6 @@ describe('userService', () => {
                 expect(result).to.not.be.null;
                 expect(result.id).to.eq(1);
                 expect(result.name).to.eq('testName');
-                expect(result.email).to.eq('test@mail.com');
                 expect(result.token).to.eq('testtoken');
             });
         });
@@ -35,7 +34,6 @@ describe('userService', () => {
                  expect(result).to.not.be.null;
                  expect(result.id).to.eq(1);
                  expect(result.name).to.eq('testName');
-                 expect(result.email).to.eq('test@mail.com');
                  expect(result.token).to.eq('testtoken');
             });
         });
@@ -47,7 +45,6 @@ describe('userService', () => {
                 expect(result).to.not.be.null;
                 expect(result.id).to.eq(1);
                 expect(result.name).to.eq('testName');
-                expect(result.email).to.eq('test@mail.com');
                 expect(result.token).to.eq('testtoken');
             });
         });
