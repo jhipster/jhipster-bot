@@ -201,8 +201,8 @@ heroku config:set GIT_NAME=MyGithubAccount
       type : "POST",
       data : "{"
          +" directory : 'the/repo/directory', "
-         +" repositoryName : 'TestApiPublisher', "
-         +" userName : 'CarlKlagba' "
+         +" repositoryName : 'TheRepoName', "
+         +" userName : 'MyGitHubAccount' "
       +"}",
       success : function(r) {
         console.log(r);
