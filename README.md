@@ -168,7 +168,7 @@ heroku config:set GIT_NAME=MyGithubAccount
   ```
 
 ##Publisher
-** Publish on GitHub  **
+**Publish on GitHub**
 ----
   Publish the project on the user's GitHub.
 
