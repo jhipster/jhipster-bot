@@ -123,44 +123,44 @@ heroku config:set GIT_NAME=MyGithubAccount
       url: "/generator/application",
       dataType: "json",
       type : "POST",
-      data : "{
-                directory: 'the/repo/directory',
-                applicationDescription: 
-                  {	
-                    generator-jhipster:	
-                      {
-                            jhipsterVersion: '3.8.0',
-                            baseName: 'jhipster',
-                            packageName: 'com.jhipster',
-                            packageFolder: 'com/jhipster',
-                            serverPort: '8080',
-                            authenticationType: 'session',
-                            hibernateCache: 'ehcache',
-                            clusteredHttpSession: false,
-                            websocket: false,
-                            databaseType: 'sql',
-                            devDatabaseType: 'h2Disk',
-                            prodDatabaseType: '',
-                            searchEngine: false,
-                            messageBroker: false,
-                            buildTool: 'maven',
-                            enableSocialSignIn: false,
-                            rememberMeKey: '59abe5c3abe885fb305b11e8d514304ccd4828c9',
-                            useSass: true,
-                            applicationType: 'monolith',
-                            testFrameworks: [
-                                'gatling'
-                            ],
-                            jhiPrefix: 'jhi',
-                            enableTranslation: true,
-                            nativeLanguage: 'en',
-                            languages: [
-                                'en',
-                                'fr'
-                            ]
-                      }
-                  }
-              }",
+      data : "{"
+            +"    directory: 'the/repo/directory', "
+            +"    applicationDescription: " 
+            +"      {	"
+            +"        generator-jhipster: "	
+            +"          { "
+            +"                jhipsterVersion: '3.8.0', "
+            +"                baseName: 'jhipster', "
+            +"                packageName: 'com.jhipster', "
+            +"                packageFolder: 'com/jhipster', "
+            +"                serverPort: '8080', "
+            +"                authenticationType: 'session', "
+            +"                hibernateCache: 'ehcache', "
+            +"                clusteredHttpSession: false, "
+            +"                websocket: false, "
+            +"                databaseType: 'sql', "
+            +"                devDatabaseType: 'h2Disk', "
+            +"                prodDatabaseType: '', "
+            +"                searchEngine: false, "
+            +"                messageBroker: false, "
+            +"                buildTool: 'maven', "
+            +"                enableSocialSignIn: false, "
+            +"                rememberMeKey: '59abe5c3abe885fb305b11e8d514304ccd4828c9', "
+            +"                useSass: true, "
+            +"                applicationType: 'monolith', "
+            +"                testFrameworks: [ "
+            +"                    'gatling'"
+            +"                ],  "
+            +"                jhiPrefix: 'jhi', "
+            +"                enableTranslation: true,"
+            +"                nativeLanguage: 'en', "
+            +"                languages: [  "
+            +"                    'en', "
+            +"                    'fr'  "
+            +"                ]"
+            +"          }"
+            +"      }"
+            +"  }",
       success : function(r) {
         console.log(r);
       }
@@ -199,11 +199,11 @@ heroku config:set GIT_NAME=MyGithubAccount
       url: "/auth/github",
       dataType: "json",
       type : "POST",
-      data : "{
-          directory : 'the/repo/directory',
-          repositoryName : 'TestApiPublisher',
-          userName : 'CarlKlagba'
-      }",
+      data : "{"
+         +" directory : 'the/repo/directory', "
+         +" repositoryName : 'TestApiPublisher', "
+         +" userName : 'CarlKlagba' "
+      +"}",
       success : function(r) {
         console.log(r);
       }
