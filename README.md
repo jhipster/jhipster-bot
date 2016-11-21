@@ -46,3 +46,212 @@ heroku config:set GIT_NAME=MyGithubAccount
 - GIT_NAME: the name of your GitHub account
 - GIT_EMAIL: the email of your GitHub account
 
+#JHipster API Documentation
+##Authentication
+**GitHub Authentication**
+----
+  Authentication of the user via his GitHub account.
+
+* **URL**
+
+  /auth/github
+
+* **Method:**
+
+  `GET`
+  
+*  **URL Params**
+
+  None
+
+* **Data Params**
+
+  None
+
+* **Sample Call:**
+
+  ```javascript
+    $.ajax({
+      url: "/auth/github",
+      dataType: "json",
+      type : "GET",
+      success : function(r) {
+        console.log(r);
+      }
+    });
+  ```
+
+
+##Generator
+**Generate JHipster Application**
+----
+ Generate a JHipster application.
+
+* **URL**
+
+  /generator/application
+
+* **Method:**
+
+  `POST`
+  
+*  **URL Params**
+  
+  None
+
+* **Data Params**
+
+  `{
+    directory : [string],
+    applicationDescription : [Object]
+   }`
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:** `{ message : "The JHipster application has been generated."}`
+ 
+* **Error Response:**
+
+  * **Code:** 401 UNAUTHORIZED <br />
+    **Content:** `{ error:{code:401,message:"An error has occurred: Authentication needed to access this resource."}}`
+
+* **Sample Call:**
+
+  ```javascript
+    $.ajax({
+      url: "/generator/application",
+      dataType: "json",
+      type : "POST",
+      data : "{
+                directory: 'the/repo/directory',
+                applicationDescription: 
+                  {	
+                    generator-jhipster:	
+                      {
+                            jhipsterVersion: '3.8.0',
+                            baseName: 'jhipster',
+                            packageName: 'com.jhipster',
+                            packageFolder: 'com/jhipster',
+                            serverPort: '8080',
+                            authenticationType: 'session',
+                            hibernateCache: 'ehcache',
+                            clusteredHttpSession: false,
+                            websocket: false,
+                            databaseType: 'sql',
+                            devDatabaseType: 'h2Disk',
+                            prodDatabaseType: '',
+                            searchEngine: false,
+                            messageBroker: false,
+                            buildTool: 'maven',
+                            enableSocialSignIn: false,
+                            rememberMeKey: '59abe5c3abe885fb305b11e8d514304ccd4828c9',
+                            useSass: true,
+                            applicationType: 'monolith',
+                            testFrameworks: [
+                                'gatling'
+                            ],
+                            jhiPrefix: 'jhi',
+                            enableTranslation: true,
+                            nativeLanguage: 'en',
+                            languages: [
+                                'en',
+                                'fr'
+                            ]
+                      }
+                  }
+              }",
+      success : function(r) {
+        console.log(r);
+      }
+    });
+  ```
+
+##Publisher
+** Publish on GitHub  **
+----
+  Publish the project on the user's GitHub.
+
+* **URL**
+
+  /publisher/directory
+
+* **Method:**
+
+  `POST`
+  
+*  **URL Params**
+
+  None
+
+* **Data Params**
+
+  `{
+    "directory" : [string],
+    "repositoryName" : [string],
+    "userName" : [string]
+   }`
+
+* **Sample Call:**
+
+  ```javascript
+    $.ajax({
+      url: "/auth/github",
+      dataType: "json",
+      type : "POST",
+      data : "{
+          directory : 'the/repo/directory',
+          repositoryName : 'TestApiPublisher',
+          userName : 'CarlKlagba'
+      }",
+      success : function(r) {
+        console.log(r);
+      }
+    });
+  ```
+
+##User
+**Get User**
+----
+  Returns json data about a single user.
+
+* **URL**
+
+  /users/:name
+
+* **Method:**
+
+  `GET`
+  
+*  **URL Params**
+
+   **Required:**
+ 
+   `name=[string] - the name of the user's GitHub account`
+
+* **Data Params**
+
+  None
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:** `{ id : 12, name : "MyGitHubAccount", token : "be2ert56lijn0ijhg76" }`
+ 
+* **Error Response:**
+
+  * **Code:** 401 UNAUTHORIZED <br />
+    **Content:** `{ error:{code:401,message:"An error has occurred: Authentication needed to access this resource."}}`
+
+* **Sample Call:**
+
+  ```javascript
+    $.ajax({
+      url: "/user/MyGitHubAccount",
+      dataType: "json",
+      type : "GET",
+      success : function(r) {
+        console.log(r);
+      }
+    });
+  ``` 
