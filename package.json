@@ -5,7 +5,7 @@
   "main": "jhipster-bot.js",
   "scripts": {
     "test": "mocha test",
-    "heroku-postbuild": "npm install -g yo && npm install -g generator-jhipster && npm install -g bower && npm rm -g gulp && npm install -g gulp-cli"
+    "heroku-postbuild": "npm install -g yo && npm install -g generator-jhipster && npm install -g bower && npm rm -g gulp && npm install -g gulp-cli && npm install express -g"
   },
   "repository": {
     "type": "git",
@@ -19,7 +19,6 @@
   "dependencies": {
     "botkit": "~0.2.2",
     "chai": "^3.5.0",
-    "express": "^4.14.0",
     "file-system": "^2.2.1",
     "github": "^5.0.0",
     "mocha": "^3.1.2",
