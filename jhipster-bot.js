@@ -167,7 +167,7 @@ function generateAndPublishApplication(directory){
     appDescriptorWriter.write(
         {
             directory: directory,
-            content: application
+            applicationDescription: { "generator-jhipster" : application }
         }
     );
     appGenerator.generate(directory);
