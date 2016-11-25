@@ -1,15 +1,30 @@
+'user strict';
 const   express = require('express'),
         app = express(),
+        path = require('path'),
         bodyParser = require('body-parser'),
-        passport = require('./auth/auth_github').passport,
-        generatorRouter = require('./generator_router'),
-        publisherRouter = require('./publisher_router'),
-        userRouter = require('./user_router')
-        authRouter = require('./auth/auth_github').router,
+        cookieParser = require('cookie-parser'),
+        passport = require('./lib/route/auth/auth_github').passport,
+        generatorRouter = require('./lib/route/generator_router'),
+        publisherRouter = require('./lib/route/publisher_router'),
+        userRouter = require('./lib/route/user_router')
+        authRouter = require('./lib/route/auth/auth_github').router,
         session = require('express-session');
 
 
 var port = process.env.PORT || 5000;
+
+// App Configuration
+app.use(express.static(path.join(__dirname, '.tmp')));
+app.use(express.static(path.join(__dirname, 'app')));
+app.set('views', __dirname + '/app/views');
+
+app.engine('html', require('ejs').renderFile);
+app.set('view engine', 'html');
+//app.use(express.logger('dev'));
+
+app.use(cookieParser());
+
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
@@ -46,6 +61,20 @@ app.use('/auth', authRouter);
 app.use('/user', userRouter);
 
 
+ // Angular Routes
+  app.get('/partials/*', function(req, res) {
+    var requestedView = path.join('./', req.url);
+    res.render(requestedView);
+  });
+
+  app.get('/*', function(req, res) {
+    if(req.user) {
+      res.cookie('user', JSON.stringify(req.user.user_info));
+    }
+
+    res.render('index.html');
+  });
+
 var api = function() {
     app.listen(port, function(){
         console.log('************');
@@ -53,5 +82,4 @@ var api = function() {
         console.log('************');
     });
 }
-
-module.exports = api;
+api();
