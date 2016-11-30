@@ -20,6 +20,7 @@
     "body-parser": "^1.15.2",
     "botkit": "~0.2.2",
     "chai": "^3.5.0",
+    "cookie-parser": "^1.4.3",
     "express-session": "^1.14.2",
     "file-system": "^2.2.1",
     "github": "^5.0.0",
@@ -28,6 +29,7 @@
     "passport": "^0.3.2",
     "passport-github": "^1.1.0",
     "passport-github2": "^0.1.10",
+    "path": "^0.12.7",
     "pg": "^6.1.0",
     "pg-pool": "^1.5.0",
     "simple-git": "^1.54.0",
@@ -35,7 +37,6 @@
   },
   "devDependencies": {
     "chai": "3.5.0",
-    "grunt": "^1.0.1",
     "grunt": "~0.4.1",
     "grunt-autoprefixer": "~0.4.0",
     "grunt-concurrent": "~0.4.1",

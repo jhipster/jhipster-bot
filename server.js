@@ -25,7 +25,6 @@ app.set('view engine', 'html');
 
 app.use(cookieParser());
 
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true
@@ -62,24 +61,24 @@ app.use('/user', userRouter);
 
 
  // Angular Routes
-  app.get('/partials/*', function(req, res) {
+app.get('/partials/*', function(req, res) {
     var requestedView = path.join('./', req.url);
     res.render(requestedView);
-  });
+});
 
-  app.get('/*', function(req, res) {
+app.get('/*', function(req, res) {
     if(req.user) {
-      res.cookie('user', JSON.stringify(req.user.user_info));
+      res.cookie('user', JSON.stringify(req.user));
     }
 
     res.render('index.html');
-  });
+});
 
 var api = function() {
     app.listen(port, function(){
-        console.log('************');
-        console.log('The JHipster application generator has started on the port: '+port);
-        console.log('************');
+        console.log('************\n'
+        +'The JHipster application generator has started on the port: '+port
+        + '\n************');
     });
 }
 api();

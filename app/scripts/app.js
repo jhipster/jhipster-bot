@@ -18,6 +18,14 @@ angular.module('angularPassportApp', [
         templateUrl: 'partials/login.html',
         controller: 'LoginCtrl'
       })
+      .when('/application', {
+        templateUrl: 'partials/application.html',
+        controller: 'ApplicationCtrl'
+      })
+      .when('/logged*', {
+        templateUrl: 'partials/main.html',
+        controller: 'MainCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });
