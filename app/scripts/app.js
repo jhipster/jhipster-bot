@@ -14,13 +14,9 @@ angular.module('angularPassportApp', [
         templateUrl: 'partials/main.html',
         controller: 'MainCtrl'
       })
-      .when('/login', {
-        templateUrl: 'partials/login.html',
-        controller: 'LoginCtrl'
-      })
-      .when('/application', {
-        templateUrl: 'partials/application.html',
-        controller: 'ApplicationCtrl'
+      .when('/generator', {
+        templateUrl: 'partials/generator.html',
+        controller: 'GeneratorCtrl'
       })
       .when('/logged*', {
         templateUrl: 'partials/main.html',
@@ -38,7 +34,7 @@ angular.module('angularPassportApp', [
     $rootScope.$watch('currentUser', function(currentUser) {
       // if no currentUser and on a page that requires authorization then try to update it
       // will trigger 401s if user does not have a valid session
-      if (!currentUser && (['/', '/login', '/logout'].indexOf($location.path()) == -1 )) {
+      if (!currentUser && (['/','/login', '/logout'].indexOf($location.path()) == -1 )) {
         Auth.currentUser();
       }
     });

@@ -54,6 +54,7 @@ module.exports = function (grunt) {
       },
       express: {
           files: [
+              '!generatedApplications/*',
               '<%= yeoman.app %>/<%= yeoman.views %>/{,*//*}*.html',
               '{.tmp,<%= yeoman.app %>}/styles/{,*//*}*.css',
               '{.tmp,<%= yeoman.app %>}/scripts/{,*//*}*.js',

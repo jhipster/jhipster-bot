@@ -4,6 +4,7 @@ const   express = require('express'),
         path = require('path'),
         bodyParser = require('body-parser'),
         cookieParser = require('cookie-parser'),
+        logger = require('morgan'),
         passport = require('./lib/route/auth/auth_github').passport,
         generatorRouter = require('./lib/route/generator_router'),
         publisherRouter = require('./lib/route/publisher_router'),
@@ -21,7 +22,7 @@ app.set('views', __dirname + '/app/views');
 
 app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
-//app.use(express.logger('dev'));
+app.use(logger('dev'));
 
 app.use(cookieParser());
 
