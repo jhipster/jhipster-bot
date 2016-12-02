@@ -196,7 +196,7 @@ heroku config:set GIT_NAME=MyGithubAccount
 
   ```javascript
     $.ajax({
-      url: "/auth/github",
+      url: "/publisher/directory",
       dataType: "json",
       type : "POST",
       data : "{"
