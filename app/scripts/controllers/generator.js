@@ -1,54 +1,58 @@
 'use strict';
+//import constants from '../../../lib/constants';
 
 angular.module('angularPassportApp')
-  .controller('GeneratorCtrl', function ($scope, $http, $location) {
+  .controller('GeneratorCtrl', function ($scope, ApplicationDescriptionBuilder, Constants, $http, $location) {
     $scope.error = {};
     $scope.application = {};
     $scope.result = {};
 
+    $scope.questionAppName = Constants.APP_NAME_QUESTION;
+
+    $scope.questionAppPackage = Constants.APP_PACKAGE_QUESTION;
+
+    $scope.questionAppType = Constants.APP_TYPE_QUESTION;
+    $scope.listAppType = Constants.APP_TYPE_CHOICES;
+
+    $scope.questionAuthenticationType = Constants.AUTHENTICATION_TYPE_QUESTION;
+    $scope.listAuthenticationType = Constants.AUTHENTICATION_TYPE_CHOICES;
+
+    $scope.questionProdDatabase = Constants.PROD_DATABASE_QUESTION;
+    $scope.listProdDatabase = Constants.PROD_DATABASE_CHOICES;
+
+    $scope.questionProdSQLDatabase = Constants.PROD_SQL_DATABASE_QUESTION;
+    $scope.listProdSQLDatabase = Constants.PROD_SQL_DATABASE_CHOICES;
+
+    $scope.questionDevDatabase = Constants.DEV_DATABASE_QUESTION;
+    $scope.listDevDatabase = Constants.DEV_DATABASE_CHOICES;
+
+    $scope.questionHibernateCache = Constants.HIBERNATE_CACHE_QUESTION;
+    $scope.listHibernateCache = Constants.HIBERNATE_CACHE_CHOICES;
+
+    $scope.questionBuildTool = Constants.BUILD_TOOL_QUESTION;
+    $scope.listBuildTool = Constants.BUILD_TOOL_CHOICES;
+
+    $scope.questionLibSass = Constants.LIB_SASS_QUESTION;
+    $scope.listLibSass = Constants.LIB_SASS_CHOICES;
+
+    $scope.questionLanguage = Constants.LANGUAGE_QUESTION;
+    $scope.questionNativeLanguage = Constants.NATIVE_LANGUAGE_QUESTION;
+    $scope.questionAdditionalLanguage = Constants.ADDITIONAL_LANGUAGE_QUESTION;
+    $scope.listLanguage = Constants.LANGUAGE_CHOICES;
+
+    $scope.yesOrNo = Constants.YES_NO_CHOICES;;
+
     $scope.generate = function(application) {
         var currentDirectory = 'generatedApplications/repository'+$scope.currentUser.name;
-        var applicationDescription = {
+        var generatorBody = {
             directory : currentDirectory,
-            applicationDescription : {
-               "generator-jhipster": {
-                 "jhipsterVersion": "3.9.1",
-                 "baseName": "testBot",
-                 "packageName": "com.test.bot",
-                 "packageFolder": "com/test/bot",
-                 "serverPort": "8080",
-                 "authenticationType": "session",
-                 "hibernateCache": "no",
-                 "clusteredHttpSession": false,
-                 "websocket": false,
-                 "databaseType": "mongodb",
-                 "devDatabaseType": "mongodb",
-                 "prodDatabaseType": "mongodb",
-                 "searchEngine": false,
-                 "messageBroker": false,
-                 "buildTool": "maven",
-                 "enableSocialSignIn": false,
-                 "rememberMeKey": "59abe5c3abe885fb305b11e8d514304ccd4828c9",
-                 "useSass": true,
-                 "applicationType": "monolith",
-                 "testFrameworks": [
-                   "gatling"
-                 ],
-                 "jhiPrefix": "jhi",
-                 "enableTranslation": true,
-                 "nativeLanguage": "en",
-                 "languages": [
-                   "en",
-                   "fr"
-                 ],
-                 "serviceDiscoveryType": false
-               }
-             }
+            applicationDescription : ApplicationDescriptionBuilder.build(application)
         };
-        $http.post('/generator/application', applicationDescription, {})
+        $scope.loading = true;
+        $http.post('/generator/application', generatorBody, {})
             .success(function (data, status, headers, config){
                 $scope.result = data.message;
-                 $http.post('/publisher/directory', {directory : currentDirectory, repositoryName : 'ViaAngularBG', userName : $scope.currentUser.name}, {})
+                 $http.post('/publisher/directory', {directory : currentDirectory, repositoryName : application.baseName, userName : $scope.currentUser.name}, {})
                     .success(function (data, status, headers, config){
                         $scope.result = data.message;
                     })
@@ -58,6 +62,10 @@ angular.module('angularPassportApp')
             })
             .error(function(data, status, header, config){
                 $scope.result = data.error.message;
+            })
+            .finally(function(){
+                $scope.loading = false;
             });
     };
+
   });

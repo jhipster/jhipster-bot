@@ -4,28 +4,131 @@
             <h1 class="text-center login-title">
                 Generate your JHipster Application
             </h1>
+            <img id="loadingImage" src="/images/logo-jhipster.png" ng-show="loading" />
             <div class="account-wall">
                 <form class="form-signin"
                       name="form"
                       novalidate>
 
                     <div>
+                        <label>{{ questionAppType }}</label>
+                        <select class="form-control"
+                                name="applicationType"
+                                ng-model="application.applicationType">
+                            <option ng-repeat="type in listAppType" ng-value="type.value">{{type.name}}</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label>{{ questionAppName }}</label>
                         <input type="text"
                                class="form-control"
                                placeholder="JHipster"
-                               name="applicationName"
-                               ng-model="application.applicationName"
+                               name="baseName"
+                               ng-model="application.baseName"
                                required
                                autofocus>
                     </div>
 
                     <div>
+                        <label>{{ questionAppPackage }}</label>
                         <input type="text"
                                class="form-control"
                                placeholder="com.org.jhipster"
                                name="packageName"
                                ng-model="application.packageName"
                                required>
+                    </div>
+
+                    <div>
+                        <label>{{ questionAuthenticationType }}</label>
+                        <select class="form-control"
+                                name="authenticationType"
+                                ng-model="application.authenticationType">
+                            <option ng-repeat="type in listAuthenticationType" ng-value="type.value">{{type.name}}</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label>{{ questionProdDatabase }}</label>
+                        <select class="form-control"
+                                name="prodDatabase"
+                                ng-model="application.databaseType">
+                            <option ng-repeat="type in listProdDatabase" ng-value="type.value">{{type.name}}</option>
+                        </select>
+                    </div>
+
+                    <div ng-if="application.databaseType == 'sql'">
+                        <label>{{ questionProdSQLDatabase }}</label>
+                        <select class="form-control"
+                                name="prodSQLDatabase"
+                                ng-model="application.prodDatabaseType">
+                            <option ng-repeat="type in listProdSQLDatabase" ng-value="type.value">{{type.name}}</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label>{{ questionDevDatabase }}</label>
+                        <select class="form-control"
+                                name="devDatabase"
+                                ng-model="application.devDatabaseType">
+                            <option ng-repeat="type in listDevDatabase" ng-value="type.value">{{type.name}}</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label>{{ questionHibernateCache }}</label>
+                        <select class="form-control"
+                                name="hibernateCache"
+                                ng-model="application.hibernateCache">
+                            <option ng-repeat="type in listHibernateCache" ng-value="type.value">{{type.name}}</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label>{{ questionBuildTool }}</label>
+                        <select class="form-control"
+                                name="buildTool"
+                                ng-model="application.buildTool">
+                            <option ng-repeat="type in listBuildTool" ng-value="type.value">{{type.name}}</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label>{{ questionLibSass }}</label>
+                        <select class="form-control"
+                                name="useSass"
+                                ng-model="application.useSass">
+                            <option ng-repeat="type in listLibSass" ng-value="type.value">{{type.name}}</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label>{{ questionLanguage }}</label>
+                        <select class="form-control"
+                                name="language"
+                                ng-model="application.enableTranslation">
+                            <option ng-repeat="type in yesOrNo" ng-value="type.value">{{type.name}}</option>
+                        </select>
+                    </div>
+
+                    <div ng-if="application.enableTranslation">
+                        <label>{{ questionNativeLanguage }}</label>
+                        <select class="form-control"
+                                name="nativeLanguage"
+                                ng-model="application.nativeLanguage">
+                            <option ng-repeat="type in listLanguage" ng-value="type.value">{{type.name}}</option>
+                        </select>
+                    </div>
+
+                    <div ng-if="application.enableTranslation">
+                        <label>{{ questionAdditionalLanguage }}</label>
+                        <select class="form-control"
+                                name="nativeLanguage"
+                                multiple
+                                ng-model="application.languages">
+                            <option ng-repeat="type in listLanguage" ng-value="type.value">{{type.name}}</option>
+                        </select>
                     </div>
 
                     <button class="btn btn-lg btn-primary btn-block" type="submit" ng-click="generate(application)">Generate</button>
