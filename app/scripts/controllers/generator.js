@@ -52,13 +52,14 @@ angular.module('angularPassportApp')
         $http.post('/generator/application', generatorBody, {})
             .success(function (data, status, headers, config){
                 $scope.result = data.message;
-                 $http.post('/publisher/directory', {directory : currentDirectory, repositoryName : application.baseName, userName : $scope.currentUser.name}, {})
+                 $http.post('/publisher/directory', {directory : currentDirectory, repositoryName : application.baseName,
+                  userName : $scope.currentUser.name, remove : true}, {})
                     .success(function (data, status, headers, config){
                         $scope.result = data.message;
                     })
                     .error(function(data, status, header, config){
                         $scope.result = data.error.message;
-                    });
+                    })
             })
             .error(function(data, status, header, config){
                 $scope.result = data.error.message;

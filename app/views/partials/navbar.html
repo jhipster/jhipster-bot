@@ -1,5 +1,5 @@
 <div class="navbar navbar-default" ng-controller="NavbarCtrl">
-    <div class="navbar-header"><a class="navbar-brand" href="#" name="top">Angular Passport</a>
+    <div class="navbar-header"><a class="navbar-brand" href="#" name="top">The JHipster App</a>
     </div>
     <div class="nav navbar-nav">
         <ul class="nav navbar-nav">
@@ -13,7 +13,7 @@
     </div>
     <div class="nav navbar-nav pull-right">
         <ul class="nav navbar-nav" ng-hide="currentUser">
-            <li><a href="http://localhost:9000/auth/github">Log In Via GitHub</a></li>
+            <li><a href="http://localhost:9000/auth/github" ng-click="redirectLink()">Log In Via GitHub</a></li>
         </ul>
         <ul class="nav navbar-nav" ng-show="currentUser">
             <li class="dropdown">

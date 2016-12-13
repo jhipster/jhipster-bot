@@ -58,7 +58,14 @@ angular.module('angularPassportApp')
                    applicationDescription.useSass = application.useSass;
 
                    //Language
-                   applicationDescription.enableTranslation = application.enableTranslation;
+                   application.enableTranslation;
+
+                   if(application.enableTranslation == 'true'){
+                    applicationDescription.enableTranslation = true;
+                   }else{
+                    applicationDescription.enableTranslation = false;
+                   }
+
                    applicationDescription.nativeLanguage = application.nativeLanguage;
                    applicationDescription.languages = application.languages;
                    //applicationDescription.languages.push(applicationDescription.nativeLanguage);

@@ -131,9 +131,8 @@
                         </select>
                     </div>
 
-                    <button class="btn btn-lg btn-primary btn-block" type="submit" ng-click="generate(application)">Generate</button>
-                    <div> {{ application }} </div>
-                    <div> {{ currentUser }} </div>
+                    <button ng-if="!loading" class="btn btn-lg btn-primary btn-block" type="submit" ng-click="generate(application)">Generate</button>
+                    <button ng-if="loading" class="btn btn-lg btn-primary btn-block" type="submit" >Generating...</button>
                     <div> {{ result }} </div>
                 </form>
             </div>
