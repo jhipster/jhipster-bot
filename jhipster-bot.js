@@ -91,9 +91,9 @@ controller.hears(['jhipster'], ['direct_message','direct_mention','mention'], fu
     };
 
     var askAuthenticationType = function(response, convo){
-        convo.ask(createMultipleChoiceQuestion(constants.AUTHENTIFICATION_TYPE_QUESTION, constants.AUTHENTIFICATION_TYPE_CHOICES),
+        convo.ask(createMultipleChoiceQuestion(constants.AUTHENTICATION_TYPE_QUESTION, constants.AUTHENTICATION_TYPE_CHOICES),
             function(response, convo){
-                processChoice(response, convo, (v =>{application.authenticationType = v;}), constants.AUTHENTIFICATION_TYPE_CHOICES);
+                processChoice(response, convo, (v =>{application.authenticationType = v;}), constants.AUTHENTICATION_TYPE_CHOICES);
                 askProdDatabase(response, convo);
                 convo.next();
             }
