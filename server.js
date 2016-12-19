@@ -1,16 +1,16 @@
-'user strict';
-const   express = require('express'),
-        app = express(),
-        path = require('path'),
-        bodyParser = require('body-parser'),
-        cookieParser = require('cookie-parser'),
-        logger = require('morgan'),
-        passport = require('./lib/route/auth/auth_github').passport,
-        generatorRouter = require('./lib/route/generator_router'),
-        publisherRouter = require('./lib/route/publisher_router'),
-        userRouter = require('./lib/route/user_router')
-        authRouter = require('./lib/route/auth/auth_github').router,
-        session = require('express-session');
+'use strict';
+const express = require('express'),
+      app = express(),
+      path = require('path'),
+      bodyParser = require('body-parser'),
+      cookieParser = require('cookie-parser'),
+      logger = require('morgan'),
+      passport = require('./lib/route/auth/auth_github').passport,
+      generatorRouter = require('./lib/route/generator_router'),
+      publisherRouter = require('./lib/route/publisher_router'),
+      userRouter = require('./lib/route/user_router')
+      authRouter = require('./lib/route/auth/auth_github').router,
+      session = require('express-session');
 
 
 var port = process.env.PORT || 5000;
